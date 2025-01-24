@@ -18,12 +18,12 @@
 #include "Sound.h"
 
 static RfidReader rfid;
-static Clock clock;
+static Clock cock;
 static Sound sound;
 
 static HttpClient http;
 
-char* lastBadge = "";
+char const* lastBadge = "";
 
 #define OLED_RESET 0  // GPIO0
 Adafruit_SSD1306 display(OLED_RESET);
@@ -46,6 +46,7 @@ void oledPrint(const char* myText, bool clearOled = true)
   display.display();
   
 }
+void configModeCallback (WiFiManager *myWiFiManager);
 void setup() {
     Serial.begin(115200);
     Serial.println("Starting display");
@@ -143,7 +144,7 @@ bool buyFood(char* badge)
   int FOOD_ID = 5;
 
   Serial.println("Starting to get food...");
-  if (!buyFoodTransaction.perform(badge, FOOD_ID, clock.getUnixTime()))
+  if (!buyFoodTransaction.perform(badge, FOOD_ID, cock.getUnixTime()))
   {
     Serial.println("Error getting food...");
     oledPrint("Error: 1");
